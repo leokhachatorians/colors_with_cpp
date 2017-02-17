@@ -12,7 +12,7 @@ void swap_channel(std::string, std::string, std::vector<ColorRGB>, unsigned long
 int main(int argc, char *argv[]) {
     unsigned long w = 0, h = 0;
     std::vector<ColorRGB> image;
-    loadImage(image, w, h, "flower.png");
+    loadImage(image, w, h, "images/flower.png");
     screen(w, h, 0, "RGB Color");
 
     //remove_channel("green", image, h, w);
