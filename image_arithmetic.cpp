@@ -12,6 +12,9 @@ void difference_of_images(std::vector<ColorRGB>, std::vector<ColorRGB>, std::vec
 void crossfade(std::vector<ColorRGB>, std::vector<ColorRGB>, std::vector<ColorRGB>, unsigned long, unsigned long);
 void min_of_images(std::vector<ColorRGB>, std::vector<ColorRGB>, std::vector<ColorRGB>, unsigned long, unsigned long);
 void max_of_images(std::vector<ColorRGB>, std::vector<ColorRGB>, std::vector<ColorRGB>, unsigned long, unsigned long);
+void and_images(std::vector<ColorRGB>, std::vector<ColorRGB>, std::vector<ColorRGB>, unsigned long, unsigned long);
+void or_images(std::vector<ColorRGB>, std::vector<ColorRGB>, std::vector<ColorRGB>, unsigned long, unsigned long);
+void xor_images(std::vector<ColorRGB>, std::vector<ColorRGB>, std::vector<ColorRGB>, unsigned long, unsigned long);
 
 int main(int argc, char *argv[]) {
     unsigned long w = 0, h = 0;
@@ -30,7 +33,10 @@ int main(int argc, char *argv[]) {
     //average_images(image1, image3, result, h, w);
     //crossfade(image1, image2, result, h, w);
     //min_of_images(image1, image2, result, h, w);
-    max_of_images(image1, image2, result, h, w);
+    //max_of_images(image1, image2, result, h, w);
+    //and_images(image1, image2, result, h, w);
+    //or_images(image1, image2, result, h, w);
+    xor_images(image1, image2, result, h, w);
     
 
     redraw();
@@ -130,6 +136,45 @@ void max_of_images(std::vector<ColorRGB> image1, std::vector<ColorRGB> image2,
             result[sum].r = std::max(image1[sum].r, image2[sum].r);
             result[sum].g = std::max(image1[sum].g, image2[sum].g);
             result[sum].b = std::max(image1[sum].b, image2[sum].b);
+            pset(x, y, result[sum]);
+        }
+    }
+}
+
+void and_images(std::vector<ColorRGB> image1, std::vector<ColorRGB> image2,
+                std::vector<ColorRGB> result, unsigned long h, unsigned long w) {
+    for (unsigned long y = 0; y < h; y++) {
+        for (unsigned long x = 0; x < w; x++) {
+            int sum = y * w + x;
+            result[sum].r = image1[sum].r & image2[sum].r;
+            result[sum].g = image1[sum].g & image2[sum].g;
+            result[sum].b = image1[sum].b & image2[sum].b;
+            pset(x, y, result[sum]);
+        }
+    }
+}
+
+void or_images(std::vector<ColorRGB> image1, std::vector<ColorRGB> image2,
+                std::vector<ColorRGB> result, unsigned long h, unsigned long w) {
+    for (unsigned long y = 0; y < h; y++) {
+        for (unsigned long x = 0; x < w; x++) {
+            int sum = y * w + x;
+            result[sum].r = image1[sum].r | image2[sum].r;
+            result[sum].g = image1[sum].g | image2[sum].g;
+            result[sum].b = image1[sum].b | image2[sum].b;
+            pset(x, y, result[sum]);
+        }
+    }
+}
+
+void xor_images(std::vector<ColorRGB> image1, std::vector<ColorRGB> image2,
+                std::vector<ColorRGB> result, unsigned long h, unsigned long w) {
+    for (unsigned long y = 0; y < h; y++) {
+        for (unsigned long x = 0; x < w; x++) {
+            int sum = y * w + x;
+            result[sum].r = image1[sum].r ^ image2[sum].r;
+            result[sum].g = image1[sum].g ^ image2[sum].g;
+            result[sum].b = image1[sum].b ^ image2[sum].b;
             pset(x, y, result[sum]);
         }
     }
